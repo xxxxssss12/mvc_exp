@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/kataras/iris"
 
+	"./common"
 	"github.com/kataras/iris/middleware/logger"
 	"github.com/kataras/iris/middleware/recover"
 )
@@ -16,24 +17,25 @@ func main() {
 	app.Use(recover.New())
 	app.Use(logger.New())
 
+	app.Any("/{.*}", route)
 	// Method:   GET
 	// Resource: http://localhost:8080
-	app.Handle("GET", "/", func(ctx iris.Context) {
-		ctx.HTML("<h1>Welcome</h1>")
-	})
-
-	// same as app.Handle("GET", "/ping", [...])
-	// Method:   GET
-	// Resource: http://localhost:8080/ping
-	app.Get("/ping", func(ctx iris.Context) {
-		ctx.WriteString("pong")
-	})
-
-	// Method:   GET
-	// Resource: http://localhost:8080/hello
-	app.Get("/hello", func(ctx iris.Context) {
-		ctx.JSON(iris.Map{"message": "Hello Iris!"})
-	})
+	//app.Handle("GET", "/", func(ctx iris.Context) {
+	//	ctx.HTML("<h1>Welcome</h1>")
+	//})
+	//
+	//// same as app.Handle("GET", "/ping", [...])
+	//// Method:   GET
+	//// Resource: http://localhost:8080/ping
+	//app.Get("/ping", func(ctx iris.Context) {
+	//	ctx.WriteString("pong")
+	//})
+	//
+	//// Method:   GET
+	//// Resource: http://localhost:8080/hello
+	//app.Get("/", func(ctx iris.Context) {
+	//	ctx.JSON(iris.Map{"message": "Hello Iris!"})
+	//})
 
 	// http://localhost:8080
 	// http://localhost:8080/ping
@@ -42,5 +44,5 @@ func main() {
 }
 
 func route(ctx iris.Context) {
-
+    ctx.JSON(common.BuildSuccHttpResult(iris.Map{"message": "Hello Iris!","url": ctx.Request().URL.String()}))
 }
