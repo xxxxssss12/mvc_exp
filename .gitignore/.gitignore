@@ -1,0 +1,48 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, build with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+.vscode/
+
+*.swp
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+*debug.test
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+# project
+*.cert
+*.key
+.test
+iprepo.txt
+
+app/*/*/cmd/cmd
+app/*/*/*/cmd/cmd
+app/*/*/cmd/debug
+app/*/*/*/cmd/debug
+app/tool/kratos/kratos
+
+_output
