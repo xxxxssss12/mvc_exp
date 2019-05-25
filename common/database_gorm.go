@@ -1,6 +1,9 @@
 package common
 
 import (
+	"fmt"
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
@@ -18,7 +21,9 @@ type DatabaseConfig struct {
 func init() {
 	var err error
 	var configs = buildDatabaseConfig()
-	db, err = gorm.Open("mysql", configs.user+":"+configs.pwd+"@/"+configs.url)
+	var connArgs = fmt.Sprintf("%s:%s@%s", configs.user, configs.pwd, configs.url)
+	fmt.Println("database->" + connArgs)
+	db, err = gorm.Open("mysql", connArgs)
 	if err != nil {
 		panic(err)
 	} else {
@@ -31,7 +36,7 @@ func buildDatabaseConfig() DatabaseConfig {
 	var config = new(DatabaseConfig)
 	config.user = "root"
 	config.pwd = "123123123"
-	config.url = "localhost:3306/test?charset=utf8mb4&parseTime=true&loc=Local"
+	config.url = "(localhost:3306)/test?charset=utf8mb4&parseTime=True&loc=Local"
 	config.maxOpenConns = 8
 	config.maxIdleConns = 8
 	return *config
